@@ -12,7 +12,7 @@ if [[ ! -z "$pacman" ]]; then
     sudo pacman -S graphviz sqlite3 aria2
     yay=$(command -v yay)
     if [[ ! -z "$yay" ]]; then
-        yay -S osmtools
+        yay -S osmconvert
     fi
 fi
 
