@@ -9,5 +9,5 @@ fi
 
 $conda create --name poiota
 $conda activate poiota
-$conda install -c conda-forge pyrosm
-$conda install -c conda-forge python-language-server
+$conda install -c conda-forge --name poiota pyrosm
+$conda install -c conda-forge --name poiota python-language-server
