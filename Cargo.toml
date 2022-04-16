@@ -1,0 +1,7 @@
+[package]
+name = "poiota"
+version = "0.1.0"
+authors = ["Joseph Diza <josephm.diza@gmail.com>"]
+
+[dependencies]
+osmpbf = "0.2"
