@@ -22,5 +22,5 @@ if [[ ! -z "$apt" ]]; then
     sudo apt install -y graphviz sqlite3 aria2 osmctools
 fi
 
-mkdir -p maps & cd maps
+mkdir -p osm & cd osm
 download-osm geofabrik 'north-america/canada/british-columbia'
