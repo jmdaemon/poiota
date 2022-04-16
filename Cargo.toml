@@ -5,3 +5,4 @@ authors = ["Joseph Diza <josephm.diza@gmail.com>"]
 
 [dependencies]
 osmpbf = "0.2"
+osmpbfreader = "0.15.2"

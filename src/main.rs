@@ -1,6 +1,10 @@
 extern crate osmpbf;
+extern crate osmpbfreader;
+
 use osmpbf::{ElementReader, Element};
+use std::process::exit;
 use std::time::Instant;
+use std::path::Path;
 
 //pub fn show_paths(mapfp: &str) -> Result<(), osmpbf::Error> {
 pub fn show_paths(mapfp: &str) {
@@ -37,7 +41,45 @@ pub fn show_paths(mapfp: &str) {
 }
 
 fn main () {
-    let mapfp = "british-columbia-latest.osm.pbf";
-    println!("Parsing {}", mapfp);
-    show_paths(mapfp);
+    let maps_dir = "osm".to_string();
+    //let mapfp = maps_dir.push_str("/british-columbia-latest.osm.pbf");
+    let mapfp = format!("{}/{}", maps_dir, "/british-columbia-latest.osm.pbf");
+    let path = Path::new(&mapfp);
+
+    //let path = std::path::Path::new(&mapfp);
+    //let r = std::fs::File::open(&path).unwrap();
+    
+    //let mapf = std::fs::File::open(&mapfp).unwrap();
+
+    let now = Instant::now();
+    println!("Time now: {:.2?}", now.elapsed());
+
+    let map = std::fs::File::open(&path).unwrap();
+    let mut pbf = osmpbfreader::OsmPbfReader::new(map);
+    
+    let objs = pbf.get_objs_and_deps(|obj| {
+        obj.is_way() && obj.tags().contains_key("highway")
+    }).unwrap();
+
+    for (id, obj) in &objs {
+        println!("{:?}: {:?}", id, obj);
+    }
+
+    let elapsed = now.elapsed();
+    println!("Time Elapsed: {:.2?}", elapsed);
+
+    //let mut nb = 0;
+    //for _obj in pbf.iter().map(Result::unwrap) {
+        //nb += 1;
+    //}
+
+    //let mut pbf = osmpbfreader::OsmPbfReader::new(&mapfp);
+    //for obj in pbf.iter() {
+    //// error handling:
+    //let obj = obj.unwrap_or_else(|e| {println!("{:?}", e); exit(1)});
+
+    //println!("{:?}", obj);
+//}
+    //println!("Parsing {}", mapfp);
+    //show_paths(mapfp);
 }
